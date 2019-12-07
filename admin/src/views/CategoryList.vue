@@ -25,7 +25,7 @@
       }
     },
     methods: {
-      async getItems () {
+      async getCategories () {
         const res = await this.$http.get('/rest/categories')
         this.items.push(...res.data)
       },
@@ -52,7 +52,7 @@
       }
     },
     created () {
-      this.getItems()
+      this.getCategories()
     }
   }
 </script>

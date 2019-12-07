@@ -2,18 +2,26 @@
   <div>
     <h3>{{(id || model._id) ? '编辑' : '新建'}}文章</h3>
     <el-form label-width="120px" @submit.native.prevent="save">
-      <el-form-item label="名称">
-        <el-input v-model="model.name"></el-input>
+      <el-form-item label="所属分类">
+        <el-select v-model="model.categories" clearable placeholder="请选择" multiple="">
+          <el-option
+            v-for="item in categories"
+            :key="item._id"
+            :label="item.name"
+            :value="item._id">
+          </el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item label="图标">
-        <el-upload
-          class="avatar-uploader"
-          :action="$http.defaults.baseURL + '/upload'"
-          :show-file-list="false"
-          :on-success="afterUpload">
-          <img v-if="model.icon" :src="model.icon" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+      <el-form-item label="标题">
+        <el-input v-model="model.title"></el-input>
+      </el-form-item>
+      <el-form-item label="文章详情">
+        <vue-editor
+          id="editor"
+          v-model="model.body"
+          useCustomImageHandler
+          @image-added="handleImageAdded"
+        ></vue-editor>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
@@ -23,7 +31,9 @@
 </template>
 
 <script>
+  import { VueEditor } from "vue2-editor"
   export default {
+    components: {VueEditor},
     props: {
       id: {
         type: String
@@ -33,7 +43,8 @@
       return {
         model: {
           icon: ''
-        }
+        },
+        categories: []
       }
     },
     methods: {
@@ -43,55 +54,46 @@
       async save () {
         let id = this.id || this.model._id
         let model = this.model
-        if (!model.name) return
+        if (!model.title) return
         for (const p in model) {
           if (!model[p]) model[p] = undefined 
         }
         if (id) {
-          await this.$http.put(`/rest/items/${id}`, model)
+          await this.$http.put(`/rest/articles/${id}`, model)
         } else {
-          await this.$http.post('/rest/items', model)
+          await this.$http.post('/rest/articles', model)
         }
-        this.$router.push('/items/list')
+        this.$router.push('/articles/list')
         this.$message({
           type: 'success',
           message: `保存成功!`
         })
       },
-      async fetch () {
-        const res = await this.$http.get(`/rest/items/${this.id}`)
+      async getArticle () {
+        const res = await this.$http.get(`/rest/articles/${this.id}`)
         this.model = {...res.data}
-        console.log(this.model)
+      },
+      async getCategories () {
+        const res = await this.$http.get('/rest/categories')
+        this.categories.push(...res.data)
+      },
+      // 富文本编辑器上传图片
+      async handleImageAdded (file, Editor, cursorLocation, resetUploader) {
+        let formData = new FormData();
+        formData.append("file", file);
+        
+        let res = await this.$http.post('/upload', formData)
+        Editor.insertEmbed(cursorLocation, "image", res.data.url);
+        resetUploader()
       }
     },
     created () {
-      this.id && this.fetch()
+      this.getCategories()
+      this.id && this.getArticle()
     }
   }
 </script>
 
 <style>
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
+
 </style>

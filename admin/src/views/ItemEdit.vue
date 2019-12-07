@@ -58,40 +58,28 @@
           message: `保存成功!`
         })
       },
-      async fetch () {
+      async getItem () {
         const res = await this.$http.get(`/rest/items/${this.id}`)
         this.model = {...res.data}
         console.log(this.model)
       }
     },
     created () {
-      this.id && this.fetch()
+      this.id && this.getItem()
     }
   }
 </script>
 
-<style>
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
+<style lang="stylus" scoped>
+  .avatar-uploader-icon 
+    font-size: 28px
+    color: #8c939d
+    width: 5rem
+    height: 5rem
+    line-height: 5rem
+    text-align: center
+  .avatar 
+    width: 5rem
+    height: 5rem
+    display: block
 </style>

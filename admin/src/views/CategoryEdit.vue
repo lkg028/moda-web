@@ -54,7 +54,7 @@
           message: `保存成功!`
         })
       },
-      async fetch () {
+      async getCategory () {
         const res = await this.$http.get(`/rest/categories/${this.id}`)
         this.model = {...res.data}
       },
@@ -65,7 +65,7 @@
     },
     created () {
       this.getParents ()
-      this.id && this.fetch()
+      this.id && this.getCategory()
     }
   }
 </script>

@@ -54,17 +54,31 @@ const routes = [
       },
       // 文章管理
       {
-        path: '/heroes/create',
-        component: () => import('../views/HeroEdit')
+        path: '/articles/create',
+        component: () => import('../views/ArticleEdit')
       },
       {
-        path: '/heroes/edit/:id',
-        component: () => import('../views/HeroEdit'),
+        path: '/articles/edit/:id',
+        component: () => import('../views/ArticleEdit'),
         props: true
       },
       {
-        path: '/heroes/list',
-        component: () => import('../views/HeroList')
+        path: '/articles/list',
+        component: () => import('../views/ArticleList')
+      },
+      // 广告位管理
+      {
+        path: '/ads/create',
+        component: () => import('../views/AdEdit')
+      },
+      {
+        path: '/ads/edit/:id',
+        component: () => import('../views/AdEdit'),
+        props: true
+      },
+      {
+        path: '/ads/list',
+        component: () => import('../views/AdList')
       },
     ]
   }

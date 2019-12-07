@@ -32,16 +32,16 @@
             </el-select>
           </el-form-item>
           <el-form-item label="难度">
-            <el-rate v-model="model.scores.difficult" show-score :max="10" show-text></el-rate>
+            <el-rate class="scores-stars" v-model="model.scores.difficult" show-score :max="10" show-text></el-rate>
           </el-form-item>
           <el-form-item label="技能">
-            <el-rate v-model="model.scores.skills" show-score :max="10" show-text></el-rate>
+            <el-rate class="scores-stars" v-model="model.scores.skills" show-score :max="10" show-text></el-rate>
           </el-form-item>
           <el-form-item label="攻击">
-            <el-rate v-model="model.scores.attack" show-score :max="10" show-text></el-rate>
+            <el-rate class="scores-stars" v-model="model.scores.attack" show-score :max="10" show-text></el-rate>
           </el-form-item>
           <el-form-item label="生存">
-            <el-rate v-model="model.scores.survive" show-score :max="10" show-text></el-rate>
+            <el-rate class="scores-stars" v-model="model.scores.survive" show-score :max="10" show-text></el-rate>
           </el-form-item>
           <el-form-item label="顺风出装">
             <el-select v-model="model.items1" clearable multiple placeholder="请选择">
@@ -143,7 +143,7 @@ export default {
         message: `保存成功!`
       });
     },
-    async fetch() {
+    async getHero() {
       const res = await this.$http.get(`/rest/heroes/${this.id}`);
       this.model = Object.assign({}, this.model, res.data);
     },
@@ -159,36 +159,23 @@ export default {
   created() {
     this.getCategories();
     this.getItems();
-    this.id && this.fetch();
+    this.id && this.getHero();
   }
 };
 </script>
 
-<style>
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 5rem;
-  height: 5rem;
-  line-height: 5rem;
-  text-align: center;
-}
-.avatar {
-  width: 5rem;
-  height: 5rem;
-  display: block;
-}
-.el-rate {
-  margin-top: 0.6rem;
-}
+<style lang="stylus" scoped>
+  .scores-stars 
+    margin-top: 0.6rem
+  .avatar-uploader-icon 
+    font-size: 28px
+    color: #8c939d
+    width: 5rem
+    height: 5rem
+    line-height: 5rem
+    text-align: center
+  .avatar 
+    width: 5rem
+    height: 5rem
+    display: block
 </style>

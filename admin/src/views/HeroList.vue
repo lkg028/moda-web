@@ -30,7 +30,7 @@
       }
     },
     methods: {
-      async getItems () {
+      async getHeroes () {
         const res = await this.$http.get('/rest/heroes')
         this.items.push(...res.data)
       },
@@ -57,7 +57,7 @@
       }
     },
     created () {
-      this.getItems()
+      this.getHeroes()
     }
   }
 </script>
