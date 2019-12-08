@@ -1,8 +1,7 @@
 const Router = require('koa-router')
 const router = new Router({mergeParams: true})
-router.prefix('/admin/api/login')
 
-
+// 接收登录表单接口
 router.post('/', async (ctx, next) => {
   const { username, password} = ctx.request.body
   // 1.找用户
@@ -18,4 +17,4 @@ router.post('/', async (ctx, next) => {
   ctx.body = {token}
 })
 
-module.exports = router
+module.exports = router.routes()

@@ -1,4 +1,4 @@
-const AdminUser = require('../../models/AdminUser')
+const AdminUser = require('../models/AdminUser')
 const jwt = require('jsonwebtoken')
 
 // 验证登录方法

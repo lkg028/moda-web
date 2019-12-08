@@ -1,6 +1,8 @@
-const combineRoutes = require('koa-combine-routers')
-const admin = require('./admin/index.js')  // 导入admin页面路由
+const Router = require('koa-router')
+const router = new Router()
 
-console.log('路由数量', admin.length)
-// 合并导出
-module.exports = combineRoutes(...admin)
+// 路由统一出口
+// admin页面
+router.use('/admin', require('./admin/index.js'))
+
+module.exports = router

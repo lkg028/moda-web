@@ -3,16 +3,15 @@ const koaBody = require('koa-body')
 const koaCors = require('@koa/cors')
 const helmet = require('koa-helmet')
 const koaStatic = require('koa-static')  // 处理静态资源中间件
-const routes = require('./routes')  // 导入合并的路由
 const path = require('path')
 
 const PORT = 3000
 // 实例化一个koa应用
 const app = new Koa()
 
-// 设置一个全局的jwt加密密钥
-// 如果请求有token就写到ctx里面
-// 增加一个全局错误处理函数到ctx上
+// jwt全局对象
+// jwt.token：存储客户端token
+// jwt.Secret：设置加密密钥
 app.use(async (ctx, next) => {
   ctx.jwt = {Secret: 'asdfflk'}
   if (ctx.request.header.authorization) {
@@ -38,8 +37,9 @@ app.use(helmet())
 // 参数：静态资源绝对路径
 app.use(koaStatic(path.join(__dirname, './uploads')))
 
-// 把路由添加进koa中间件
-app.use(routes())  
+// 路由中间件
+app.use(require('./routes').routes())
+app.use(require('./routes').allowedMethods())
 
 // 启动数据库
 require('./plugins/db.js')(app)
@@ -49,7 +49,6 @@ require('./plugins/db.js')(app)
 app.on('error', async (err, ctx) => {
   console.log(err)
 })
-
 
 // 设置应用监听端口8848
 app.listen(PORT, () => {
