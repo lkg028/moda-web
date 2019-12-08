@@ -1,9 +1,11 @@
 const Router = require('koa-router')
-// const Category = require('../../models/Category')
-const router = new Router({mergeParams: true});
+const router = new Router({mergeParams: true})
 router.prefix('/admin/api/rest/:resource')
 
-// 在所有路由之前
+// 验证登录
+router.use('/', require('./auth'))
+
+// 在所有路由之前,把接口路径里的资源名称改为类名的形式，方便自动获取schema
 router.use('/', async (ctx, next) => {
   const modelName = require('inflection').classify(ctx.params.resource)
   ctx.Model = require(`../../models/${modelName}`)

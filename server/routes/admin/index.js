@@ -1,4 +1,5 @@
 module.exports = [
   require('./rest'),
-  require('./upload')
+  require('./upload'),
+  require('./login')
 ]

@@ -5,6 +5,7 @@ import Main from '../views/Main.vue'
 Vue.use(VueRouter)
 
 const routes = [
+  {path: '/login' , name: 'login', component: () => import('../views/Login.vue')},
   {
     path: '/',
     name: 'home',
@@ -80,12 +81,30 @@ const routes = [
         path: '/ads/list',
         component: () => import('../views/AdList')
       },
+      // 管理员管理
+      {
+        path: '/admin_users/create',
+        component: () => import('../views/AdminUserEdit')
+      },
+      {
+        path: '/admin_users/edit/:id',
+        component: () => import('../views/AdminUserEdit'),
+        props: true
+      },
+      {
+        path: '/admin_users/list',
+        component: () => import('../views/AdminUserList')
+      },
     ]
-  }
+  },
 ]
 
 const router = new VueRouter({
   routes
 })
-
+router.beforeEach((to, from, next) => {
+  console.log('to:',to)
+  console.log('form:',from)
+  next()
+})
 export default router
