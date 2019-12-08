@@ -8,6 +8,7 @@
       <el-form-item label="图标">
         <el-upload
           class="avatar-uploader"
+          :headers="uploadHeaders"
           :action="$http.defaults.baseURL + '/upload'"
           :show-file-list="false"
           :on-success="afterUpload">
@@ -34,6 +35,11 @@
         model: {
           icon: ''
         }
+      }
+    },
+    computed: {
+      uploadHeaders () {
+        return {Authorization: localStorage.token && 'Bearer ' + localStorage.token}
       }
     },
     methods: {

@@ -13,6 +13,7 @@
               <el-form-item label="广告图片"  label-width="8rem">
                 <el-upload
                   class="avatar-uploader"
+                  :headers="uploadHeaders"
                   :action="$http.defaults.baseURL + '/upload'"
                   :show-file-list="false"
                   :on-success="res => $set(item, 'image', res.url)"
@@ -50,6 +51,11 @@ export default {
         items: []
       }
     };
+  },
+  computed: {
+    uploadHeaders () {
+      return {Authorization: localStorage.token && 'Bearer ' + localStorage.token}
+    }
   },
   methods: {
     afterUpload(res) {

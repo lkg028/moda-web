@@ -13,6 +13,7 @@
           <el-form-item label="头像">
             <el-upload
               class="avatar-uploader"
+              :headers="uploadHeaders"
               :action="$http.defaults.baseURL + '/upload'"
               :show-file-list="false"
               :on-success="afterUpload"
@@ -73,6 +74,7 @@
               <el-form-item label="图标">
                 <el-upload
                   class="avatar-uploader"
+                  :headers="uploadHeaders"
                   :action="$http.defaults.baseURL + '/upload'"
                   :show-file-list="false"
                   :on-success="res => $set(item, 'icon', res.url)"
@@ -119,6 +121,11 @@ export default {
       categories: [],
       items: []
     };
+  },
+  computed: {
+    uploadHeaders () {
+      return {Authorization: localStorage.token && 'Bearer ' + localStorage.token}
+    }
   },
   methods: {
     afterUpload(res) {

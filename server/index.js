@@ -3,6 +3,7 @@ const koaBody = require('koa-body')
 const koaCors = require('@koa/cors')
 const helmet = require('koa-helmet')
 const koaStatic = require('koa-static')  // 处理静态资源中间件
+const router = require('./routes')
 const path = require('path')
 
 const PORT = 3000
@@ -38,8 +39,8 @@ app.use(helmet())
 app.use(koaStatic(path.join(__dirname, './uploads')))
 
 // 路由中间件
-app.use(require('./routes').routes())
-app.use(require('./routes').allowedMethods())
+app.use(router.routes())
+app.use(router.allowedMethods())
 
 // 启动数据库
 require('./plugins/db.js')(app)

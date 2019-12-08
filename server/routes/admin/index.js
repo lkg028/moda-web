@@ -7,9 +7,9 @@ const auth = require('../auth.js')
 router.use('/api/login', require('./login.js'))
 
 // rest入口，auth验证登录
-router.use('/api/rest/:resource', auth,require('./rest.js'))
+router.use('/api/rest/:resource', auth(),require('./rest.js'))
 
 // upload入口，auth验证登录
-router.use('/upload', auth,require('./upload.js'))
+router.use('/api/upload', auth(),require('./upload.js'))
 
 module.exports = router.routes()

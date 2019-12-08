@@ -4,6 +4,7 @@ import Main from '../views/Main.vue'
 
 Vue.use(VueRouter)
 
+// 路由配置信息
 const routes = [
   {path: '/login' , name: 'login', component: () => import('../views/Login.vue')},
   {
@@ -102,9 +103,26 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+
+// 前端路由守卫，也可以使用路由meta数据标识
+// 到登录页面：已经登录了就直接返回
+// 到其它非登录页面：没有登录就强制跳转登录页面
 router.beforeEach((to, from, next) => {
-  console.log('to:',to)
-  console.log('form:',from)
+  const token = localStorage.token
+  if (to.path === '/login' && token) {
+    Vue.prototype.$message({
+      type: 'success',
+      message: '已经登录'
+    })
+    from.path ? next(from.path) : next('/')
+  }
+  if (to.path !== '/login' && !token) {
+    Vue.prototype.$message({
+      type: 'error',
+      message: '请先登录'
+    })
+    next('/login')
+  }
   next()
 })
 export default router

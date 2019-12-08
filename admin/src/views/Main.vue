@@ -47,15 +47,7 @@
       
       <el-container>
         <el-header style="text-align: right; font-size: 12px">
-          <el-dropdown>
-            <i class="el-icon-setting" style="margin-right: 15px"></i>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>查看</el-dropdown-item>
-              <el-dropdown-item>新增</el-dropdown-item>
-              <el-dropdown-item>删除</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-          <span>王小虎</span>
+          <el-button type="primary" plain @click.native="logout">退出登录</el-button>
         </el-header>
         
         <el-main>
@@ -76,6 +68,12 @@
       };
       return {
         tableData: Array(20).fill(item)
+      }
+    },
+    methods: {
+      logout () {
+        localStorage.removeItem('token')
+        this.$router.push('/login')
       }
     }
   }
