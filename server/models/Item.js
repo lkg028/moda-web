@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const schema = new mongoose.Schema({
-  name: {type: String},
+  name: {type: String, unique: true},
   icon: {type: String}
 })
 

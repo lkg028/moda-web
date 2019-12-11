@@ -8,10 +8,10 @@
       <el-form-item label="图标">
         <el-upload
           class="avatar-uploader"
-          :headers="uploadHeaders"
+          :headers="mixin_GetAuthHeader"
           :action="$http.defaults.baseURL + '/upload'"
           :show-file-list="false"
-          :on-success="afterUpload">
+          :on-success="res => $set(model, 'icon', res.url)">
           <img v-if="model.icon" :src="model.icon" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
@@ -37,15 +37,7 @@
         }
       }
     },
-    computed: {
-      uploadHeaders () {
-        return {Authorization: localStorage.token && 'Bearer ' + localStorage.token}
-      }
-    },
     methods: {
-      afterUpload (res) {
-        this.model.icon = res.url
-      },
       async save () {
         let id = this.id || this.model._id
         let model = this.model

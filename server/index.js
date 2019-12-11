@@ -36,6 +36,8 @@ app.use(helmet())
 
 // 处理静态资源
 // 参数：静态资源绝对路径
+app.use(koaStatic(path.join(__dirname, './public/web'), {index: 'index.html'}))
+app.use(koaStatic(path.join(__dirname, './public')))
 app.use(koaStatic(path.join(__dirname, './uploads')))
 
 // 路由中间件

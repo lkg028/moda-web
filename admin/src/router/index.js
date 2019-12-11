@@ -10,6 +10,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
+    redirect: '/articles/list', // 指定一个默认页
     component: Main,
     children: [
       // 分类管理

@@ -1,0 +1,197 @@
+// import scss var
+@import './var';
+// reset 
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+
+html {
+  font-size: 50px;
+}
+
+body {
+  margin: 0;
+  font-family: Arial Helvetica sans-serif;
+  line-height: 1.2;
+  background: #f1f1f1;
+}
+
+a{
+  color: #999;
+}
+
+p {
+  line-height: 1.5;
+}
+
+// text-color & bg-color
+@each $colorKey,$color in $colors {
+  .text-#{$colorKey} {
+    color: $color
+  }
+  .bg-#{$colorKey} {
+    background-color: $color;
+  }
+}
+
+// text
+@each $var in (left, center, right) {
+  .text-#{$var} {
+    text-align: $var !important;
+  }
+}
+// .text-cut
+.text-cut {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// width
+.w-100 {
+  width: 100%;
+}
+.w-25 {
+  width: 25%;
+}
+
+
+// font-size: fs-xs、fs-sm...
+@each $sizeKey,$size in $font-sizes {
+  .fs-#{$sizeKey} {
+    font-size: $size * $font-base-size;
+  }
+}
+
+// flex
+.d-flex {
+  display: flex;
+}
+.flex-column {
+  flex-direction: column;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+// justify-content, jc-center、jc-start
+@each $key,$var in $flex-jc {
+  .jc-#{$key} {
+    justify-content: $var;
+  }
+}
+
+// align-items
+@each $key,$var in $flex-ai {
+  .ai-#{$key} {
+    align-items: $var;
+  }
+}
+
+.flex-1 {
+  flex: 1;
+}
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+// spacing margin & padding
+@each $typeKey,$type in $spacing-types {
+  @each $sizeKey,$size in $spacing-sizes {
+    // .m-1 { margin: 0.25rem; }
+    .#{$typeKey}-#{$sizeKey} {
+      #{$type}: $size * $spacing-base-size
+    }
+  }
+  @each $sizeKey,$size in $spacing-sizes {
+    // .mx-1 { margin-left: 0.25rem; margin-right: 0.25rem; }
+    .#{$typeKey}x-#{$sizeKey} {
+      #{$type}-left: $size * $spacing-base-size;
+      #{$type}-right: $size * $spacing-base-size;
+    }
+    .#{$typeKey}y-#{$sizeKey} {
+      #{$type}-top: $size * $spacing-base-size;
+      #{$type}-bottom: $size * $spacing-base-size;
+    }
+  }
+  @each $directionKey,$direction in $spacing-direction {
+    @each $sizeKey,$size in $spacing-sizes {
+      // .mt-1 { margin-top: 0.25rem; }
+      .#{$typeKey}#{$directionKey}-#{$sizeKey} {
+        #{$type}-#{$direction}: $size * $spacing-base-size;
+      }
+    }
+  }
+}
+
+// border-top
+@each $type in (top, right, bottom, left) {
+  .#{border}-#{$type} {
+    #{border}-#{$type}: 1px solid $border-color;
+  }
+}
+.border {
+  border: 1px solid $border-color;
+}
+
+// button
+.btn {
+  border: none;
+  border-radius: 0.04rem;
+  font-size: map-get($font-sizes, 'sm') * $font-base-size;
+  padding: 0.08rem 0.12rem;
+  &.btn-lg {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    .iconfont {
+      color: map-get($colors, 'primary');
+      font-size: 0.36rem;
+      font-weight: bold;
+      margin-right: 0.2rem;
+    }
+    background: map-get($colors, 'white-1');
+    border: 1px solid map-get($colors, 'white-2' );
+    padding: 0.2rem 0.2rem;
+  }
+}
+
+// nav
+.nav {
+  display: flex;
+  .nav-item {
+    border-bottom: 2px solid transparent;
+    padding-bottom: 0.1rem;
+    &.active {
+      color: map-get($colors, 'primary' );
+      border-bottom-color: map-get($colors, 'primary' );
+    }
+  }
+  &.nav-inverse {
+    .nav-item {
+      color: map-get($colors , 'white' );
+      &.active {
+        border-bottom-color: map-get($colors, 'white' );
+      }
+    }
+  }
+}
+
+// sprite
+.sprite {
+  background: url(../images/index.png) no-repeat 0 0;
+  background-size: 7.5rem;
+  display: inline-block;
+  &.sptite-news {
+    width: 0.46rem;
+    height: 0.4rem;
+    background-position: 63.546% 15.517%;
+  }
+  &.sptite-arrow {
+    width: 0.2rem;
+    height: 0.2rem;
+    background-position: 38.577% 52.076%;
+  }
+}
+

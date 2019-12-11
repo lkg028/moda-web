@@ -5,6 +5,16 @@ import router from './router'
 import http from './http.js'
 import '@/assets/css/main.css'
 Vue.config.productionTip = false
+
+// mixin
+Vue.mixin({
+  computed: {
+    mixin_GetAuthHeader () {
+       return {Authorization: localStorage.token && 'Bearer ' + localStorage.token}
+    }
+  }
+})
+
 Vue.prototype.$http = http
 new Vue({
   router,

@@ -32,7 +32,7 @@ router.get('/', async ctx => {
   if (ctx.Model.modelName === 'Category') {
     options.populate = 'parent'
   }
-  const model = await ctx.Model.find().setOptions(options).limit(10)
+  const model = await ctx.Model.find().setOptions(options).limit(100)
   ctx.body = model
 })
 

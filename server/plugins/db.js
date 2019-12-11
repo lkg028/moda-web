@@ -3,6 +3,10 @@ module.exports = function (app) {
   mongoose.connect('mongodb://127.0.0.1:27017/',{
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useCreateIndex: true
   })
+  // 执行所有schema模块的代码
+
+  require('require-all')(__dirname + '/../models')
 }

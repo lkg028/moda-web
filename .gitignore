@@ -105,3 +105,6 @@ dist
 
 # uploads image file
 uploads/
+
+# vue build dir
+server/public/
