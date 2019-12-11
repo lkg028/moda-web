@@ -21,6 +21,7 @@
 3. 启动项目
    ```
    cd ./server
+   npm install
    npm run dev
    ```
 4. 打开初始化数据页面，生成默认的用户名`admin`和密码`admin`

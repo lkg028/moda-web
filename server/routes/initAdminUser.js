@@ -5,7 +5,7 @@ const router = new Router()
 router.get('/', async (ctx) => {
   const AdminUser = require('../models/AdminUser')
   try {
-    await await ctx.Model.create({
+    await await AdminUser.create({
       username: 'admin',
       password: 'admin'
     })
