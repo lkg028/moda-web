@@ -70,7 +70,7 @@ import dayjs from 'dayjs'
         swiperOption: {
           loop: true,
           pagination: '.swiper-pagination',
-          autoplay: 1000
+          autoplay: 3000
         },
         newsCats: [],
         heroesCats: []
